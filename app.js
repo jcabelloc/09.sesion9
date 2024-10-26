@@ -21,17 +21,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-/*
+
 app.use((req, res, next) => {
-    // id de usuario creado en Mongo Atlas: 671c432403f36d5f18a242b4
-    Usuario.findById('671c432403f36d5f18a242b4')
+    Usuario.findById('671c59f25e11c1a2041ed6ad')
         .then(usuario => {
-            req.usuario = new Usuario(usuario.nombre, usuario.email, usuario.carrito, usuario._id);
+            req.usuario = usuario;
             next();
         })
         .catch(err => console.log(err));
 
-}); */
+});
 
 app.use('/admin', adminRoutes);
 app.use(tiendaRoutes);
@@ -45,6 +44,19 @@ mongoose
   )
   .then(result => {
     console.log(result)
+
+    Usuario.findOne().then(usuario => {
+        if (!usuario) {
+          const usuario = new Usuario({
+            nombre: 'Juan',
+            email: 'juan@gmail.com',
+            carrito: {
+              items: []
+            }
+          });
+          usuario.save();
+        }
+      });
     app.listen(3000);
   })
   .catch(err => {
