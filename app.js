@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*
 app.use((req, res, next) => {
     // id de usuario creado en Mongo Atlas: 671c432403f36d5f18a242b4
     Usuario.findById('671c432403f36d5f18a242b4')
@@ -30,7 +31,7 @@ app.use((req, res, next) => {
         })
         .catch(err => console.log(err));
 
-});
+}); */
 
 app.use('/admin', adminRoutes);
 app.use(tiendaRoutes);
