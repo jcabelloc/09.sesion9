@@ -1,4 +1,5 @@
 const mongodb = require('mongodb');
+/*
 const getDb = require('../utils/database').getDb;
 
 class Producto {
@@ -74,4 +75,4 @@ class Producto {
   }
 }
 
-module.exports = Producto;
+module.exports = Producto; */

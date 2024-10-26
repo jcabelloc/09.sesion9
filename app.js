@@ -3,8 +3,8 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const database = require('./utils/database');
-const mongoConnect = database.mongoConnect;
+const mongoose = require('mongoose');
+
 
 const adminRoutes = require('./routes/admin')
 const tiendaRoutes = require('./routes/tienda')
@@ -38,8 +38,17 @@ app.use(tiendaRoutes);
 
 app.use(errorController.get404);
 
-mongoConnect(() => {
+mongoose
+  .connect(
+    'mongodb+srv://jcabelloc:secreto@cluster0.m3us8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+  )
+  .then(result => {
+    console.log(result)
     app.listen(3000);
-})
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
 
 
