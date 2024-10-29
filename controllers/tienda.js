@@ -44,8 +44,10 @@ exports.getIndex = (req, res) => {
 
 exports.getCarrito = (req, res, next) => {
     req.usuario
-        .getCarrito()
-        .then(productos => {
+        .populate('carrito.items.idProducto')
+        .then(usuario => {
+            const productos = usuario.carrito.items;
+            //const productos = usuario.carrito.items.map(e => {... e.idProducto}, cantidad: e.cantidad);
             res.render('tienda/carrito', {
                 path: '/carrito',
                 titulo: 'Mi Carrito',
